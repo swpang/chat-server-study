@@ -10,17 +10,25 @@ namespace chatTest3_Server
     {
         public TcpClient client { get; set; }
         public byte[] readByteData { get; set; }
-        public int clientNumber;
+        public Byte[] readBuffer { get; set; }
+        public StringBuilder currentMsg { get; set; }
+        public string clientName { get; set; }
+        public int clientNumber { get; set; }
         public ClientData(TcpClient client)
         {
             this.client = client;
-            this.readByteData = new byte[1024];
 
-            string clientEndPoint = client.Client.LocalEndPoint.ToString();
-            char[] point = { '.', ':' };
-            string[] splittedData = clientEndPoint.Split(point);
-            this.clientNumber = int.Parse(splittedData[3]);
-            Console.WriteLine("# {0} User Successfully Connected", clientNumber);
+            currentMsg = new StringBuilder();
+            readBuffer = new byte[1024];
+
+            char[] splitDivision = new char[2];
+            splitDivision[0] = '.';
+            splitDivision[1] = ':';
+
+            string[] temp = null;
+
+            temp = client.Client.LocalEndPoint.ToString().Split(splitDivision);
+            this.clientNumber = int.Parse(temp[3]);
         }
     }
 }

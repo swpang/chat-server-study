@@ -10,7 +10,9 @@ namespace chatTest3_Server
     {
         static void Main(string[] args)
         {
-            MyServer a = new MyServer();
+            // MyServer a = new MyServer();
+            MainServer a = new MainServer();
+            a.Console.View();
         }
     }
 }
