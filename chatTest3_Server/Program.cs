@@ -12,7 +12,7 @@ namespace chatTest3_Server
         {
             // MyServer a = new MyServer();
             MainServer a = new MainServer();
-            a.Console.View();
+            a.ConsoleView();
         }
     }
 }
