@@ -145,7 +145,7 @@ namespace chatTest3_Server
             TcpListener listener = new TcpListener(new IPEndPoint(IPAddress.Any, 9999));
             listener.Start();
 
-            while(true)
+            while (true)
             {
                 Task<TcpClient> acceptTask = listener.AcceptTcpClientAsync();
                 acceptTask.Wait();
@@ -156,7 +156,7 @@ namespace chatTest3_Server
 
         public void ConsoleView()
         {
-            while(true)
+            while (true)
             {
                 Console.WriteLine("=============Server=============");
                 Console.WriteLine("1. 현재 접속 인원 확인");
@@ -195,9 +195,9 @@ namespace chatTest3_Server
                     Console.WriteLine("Wrong input");
                     Console.ReadKey();
                 }
+                Console.Clear();
+                Thread.Sleep(50);
             }
-            Console.Clear();
-            Thread.Sleep(50);
         }
 
         private void ShowChattingLog()
