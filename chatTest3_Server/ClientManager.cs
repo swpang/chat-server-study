@@ -40,14 +40,21 @@ namespace chatTest3_Server
                     new AsyncCallback(DataReceived), client);
                 if (string.IsNullOrEmpty(client.clientName))
                 {
-                    if (CheckID(strData))
+                    if (EventHandler != null)
                     {
-                        string userName = strData.Substring(3);
-                        client.clientName = userName;
-                        string accessLog = string.Format("[{0}] {1} Access Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), client.clientName);
-                        EventHandler.Invoke(accessLog, StaticDefine.ADD_ACCESS_LOG);
-                        return;
+                        if (CheckID(strData))
+                        {
+                            string userName = strData.Substring(3);
+                            client.clientName = userName;
+                            string accessLog = string.Format("[{0}] {1} Access Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), client.clientName);
+                            EventHandler.Invoke(accessLog, StaticDefine.ADD_ACCESS_LOG);
+                            return;
+                        }
                     }
+                }
+                if (messageParsingAction != null)
+                {
+                    messageParsingAction.BeginInvoke(client.clientName, strData, null, null);
                 }
             }
             catch (Exception e) { }
@@ -55,7 +62,7 @@ namespace chatTest3_Server
 
         private bool CheckID(string ID)
         {
-            if (ID.Contains("%^%"))
+            if (ID.Contains("%^&"))
                 return true;
             return false;
         }

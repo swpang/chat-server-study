@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace chatTest3_Server
 {
-    class MainServer
+    public class MainServer
     {
         ClientManager _clientmanager = null;
         ConcurrentBag<string> chattingLog = null;
@@ -31,6 +31,7 @@ namespace chatTest3_Server
             connectedCheckThread.Start();
         }
 
+        // 초당 1번씩 Admin<TEST> 라는 string을 보내 연결을 확인 (오류 발생 시 client 삭제)
         private void ConnectCheckLoop()
         {
             while (true)
@@ -110,7 +111,7 @@ namespace chatTest3_Server
                     return;
                 }
 
-                LogMessage = string.Format(@"[{0}] [{1}] -> [{2}], {3}", DateTime.Now.ToString("yyyy-mm-dd HH:mm:ss"),
+                LogMessage = string.Format(@"[{0}] [{1}] => [{2}], {3}", DateTime.Now.ToString("yyyy-mm-dd HH:mm:ss"),
                     sender, receiver, splittedMsg[1]);
                 ClientEvent(LogMessage, StaticDefine.ADD_CHATTING_LOG);
                 byte[] sendByteData = Encoding.Default.GetBytes(parsedMessage);
