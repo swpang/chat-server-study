@@ -28,6 +28,7 @@ namespace chatTest3_Server
             string[] temp = null;
 
             temp = client.Client.LocalEndPoint.ToString().Split(splitDivision);
+            //Socket.LocalEndPoint? IP Address + Port Number
             this.clientNumber = int.Parse(temp[3]);
         }
     }
